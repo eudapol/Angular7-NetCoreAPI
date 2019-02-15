@@ -1,31 +1,33 @@
+import { VehicleService } from './../../../shared/services/vehicle.service';
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import {Vehicle, Car} from '../shared/model/vehicle.model';
-import { VehicleService } from '../shared/services/vehicle.service';
+
 import { Subscription } from 'rxjs';
-import { timeout } from 'q';
+
+import { Vehicle } from './../../../shared/model/vehicle.model';
 
 
 @Component({
   selector: 'app-vehiclelist',
-  templateUrl: './vehiclelist.component.html',
-  styleUrls: ['./vehiclelist.component.css']
+  templateUrl: './vehicle-list.component.html',
+  styleUrls: ['./vehicle-list.component.css']
 })
-export class VehiclelistComponent implements OnInit, OnDestroy {
+export class VehicleListComponent implements OnInit, OnDestroy {
   vehicleList: Vehicle[];
   private subscription: Subscription;
   public Loading = false;
-  constructor(private vehicleService: VehicleService) {
+  private vehicleTypes$ : any;
 
-   }
+  constructor(private vehicleService: VehicleService) {}
 
   ngOnInit() {
     this.Loading = true;
-    setTimeout(() => {
+    this.vehicleTypes$ = this.vehicleService.getVehicleTypes();
+   
       this.subscription = this.vehicleService.getAllVehicles().subscribe(data => {
         this.vehicleList = data;
         this.Loading = false;
         });
-    }, 1000);
+    
    }
 
    ngOnDestroy() {
