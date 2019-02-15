@@ -1,13 +1,14 @@
 import { FormGroup } from '@angular/forms';
 import { VehicleService } from './../../../shared/services/vehicle.service';
-import { OnInit, OnDestroy, Component , Input, EventEmitter, Output} from '@angular/core';
+import { OnInit, OnDestroy, Component, Input, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
 
 
 
 @Component({
   selector: 'app-vehicle-form',
   templateUrl: './vehicle-form.component.html',
-  styleUrls: ['./vehicle-form.component.css']
+  styleUrls: ['./vehicle-form.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VehicleFormComponent implements OnInit, OnDestroy {
 
